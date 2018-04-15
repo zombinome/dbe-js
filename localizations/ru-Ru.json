@@ -1,0 +1,61 @@
+{
+    "factions": {
+        "demons": {
+            "name": "Легионы преисподней",
+            "description": "",
+            "heroNames": []
+        },
+        "dwarfs": {
+            "name": "Подгорные кланы",
+            "description": "",
+            "heroNames": []
+        },
+        "elves": {
+            "name": "Эльфийские рода",
+            "description": "",
+            "heroNames": []
+        },
+        "greenSkins": {
+            "name": "Орда пустошей",
+            "description": "",
+            "heroNames": []
+        },
+        "humans": {
+            "name": "Вечная империя",
+            "description": "",
+            "heroNames": []
+        },
+        "undead": {
+            "name": "Полчища нежити",
+            "description": "",
+            "heroNames": []
+        },
+        "neutrals": [
+            "Нейтральные отряды",
+            "description",
+            []
+        ]
+    },
+    "merchants": [
+        "Лавка Тревора",
+        "Сказочные редкости"
+    ],
+    "trainers": [
+        "Ристалище старого Диония",
+        "Арена новичков"
+    ],
+    "spellTowers": [
+        "Башня Синего мага"
+    ],
+    "cities": [],
+    "units": {
+        "unitId": [
+            "name",
+            "description"
+        ]
+
+    },
+    "ui": {
+
+    }
+}

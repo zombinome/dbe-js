@@ -1,0 +1,74 @@
+{
+    "cities": [
+        "Gallymar", "Vinusi", "Venusi", "Otzwall"
+    ],
+    "factions": {
+        "demons": {
+            "name": "Legions of Hell",
+            "description": "",
+            "capitalNames": [ "Ahgzob", "Nazurrakh" ],
+            "heroNames": []
+        },
+        "dwarfs": {
+            "name": "Mountain Clans",
+            "description": "",
+            "capitalNames": [ "Mountain Spring" ],
+            "heroNames": []
+        },
+        "elves": {
+            "name": "Elvish Tribes",
+            "description": "",
+            "capitalNames": [ "Outumn Leaf", "Evenrgreen Forest" ],
+            "heroNames": []
+        },
+        "greenSkins": {
+            "name": "Hordes of Wastelands",
+            "description": "",
+            "capitalNames": [ "Kepistan" ],
+            "heroNames": []
+        },
+        "humans": {
+            "name": "Eternal Empire",
+            "description": "",
+            "capitalNames": [ "White city", "Summerhall" ],
+            "heroNames": []
+        },
+        "undead": {
+            "name": "Army of Undead",
+            "description": "",
+            "capitalNames": [ "Deathgrounds" ],
+            "heroNames": []
+        },
+        "neutrals": {
+            "name": "Neutrals",
+            "description": "Neutral factions"
+        }
+    },
+    "merchants": [
+    ],
+    "trainers": [
+        "Old Rex",
+        "Redgar One-Eye"
+    ],
+    "spellTowers": [],
+    "heroNames": {
+        "demon": [],
+        "dwarf": [],
+        "elves": [],
+        "human": [],
+        "undead": []
+    },
+    "units": {
+        "unitId": [
+            "name",
+            "description"
+        ]
+    },
+    "ui": {
+        "titleScreen": {
+            "newGame": "New Game",
+            "options": "Options",
+            "exit": "Exit"
+        }
+    }
+}

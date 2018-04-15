@@ -1,0 +1,30 @@
+[
+    {
+        "id": "demons",
+        "capital": true
+    },
+    {
+        "id": "dwarfs",
+        "capital": true
+    },
+    {
+        "id": "elves",
+        "capital": true
+    },
+    {
+        "id": "greenSkins",
+        "capital": true
+    },
+    {
+        "id": "humans",
+        "capital": true
+    },
+    {
+        "id": "undead",
+        "capital": true
+    },
+    {
+        "id": "neutrals",
+        "capital": false
+    }
+]

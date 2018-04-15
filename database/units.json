@@ -1,0 +1,27 @@
+[
+    {
+        "id": "squire",
+        "faction": "humans",
+        "baseLevel": 1,
+        "maxExperience": 90,
+        "_experienceLevelingCoefficient": 1,
+        "maxHealth": 120,
+        "large": false,
+        "armour": 0,
+        "immunities": [],
+        "shields": [],
+        "initiative": 50,
+        "attack1": {
+            "name": "squire_attack1_name",
+            "source": "weapon",
+            "effect": "damage",
+            "accuracy": 80,
+            "_accuracyLevelingBonus": 1
+        },
+        "attack2": null,
+        "actions": 1,
+        "target": "nearest",
+        "baseMovement": 20,
+        "_baseMovementLevelingBonus": 0
+    }
+]
