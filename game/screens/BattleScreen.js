@@ -4,7 +4,6 @@ import EventSource from './../utils/EventSource.js';
 
 /**
  * @implements {IGameScreen}
- * @implements {IEventSource}
  */
 export default class BattleScreen extends EventSource {
     constructor(screenNode) {

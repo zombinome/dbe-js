@@ -1,4 +1,4 @@
-interface IAttackEffact {
+interface IAttackEffect {
     damage: string;
     poison: string;
     paralysis: string;
@@ -22,7 +22,7 @@ interface IAttackSource {
     mind: string;
 }
 
-interface IAttackTageting {
+interface IAttackTargeting {
     nearest: string;
     anyone: string;
     everyone: string;

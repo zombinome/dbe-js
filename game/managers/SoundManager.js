@@ -30,5 +30,5 @@ export default class SoundManager {
      * @param musicHandle {number}
      * @returns {boolean}
      */
-    stopMusic(musicHandler) {}
+    stopMusic(musicHandle) {}
 }

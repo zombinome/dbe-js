@@ -21,7 +21,7 @@ interface IHttpUtils {
 }
 
 interface IServiceLocator {
-    register(regostrations: any);
+    register(registrations: any);
 
     register(serviceName: string, resolveRule: Array);
 

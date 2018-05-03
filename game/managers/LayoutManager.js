@@ -1,8 +1,8 @@
-import {assert} from "../../engine/utils";
+import {assert} from "../../engine/utils.js";
 
 'use strict';
 
-export class LayoutManager {
+export default class LayoutManager {
     constructor() {
         /** @type {number} */ this._nextId = 0;
         /** @type {IRegion[]} */ this._regions = []; // TODO: reimplement custom linked list
@@ -11,6 +11,7 @@ export class LayoutManager {
     /**
      * Register new region
      * @param shape {IShape} Region shape, should implement IShape interface
+     * @param [data] {*} any data associated with current shape
      * @returns {number} Region id
      */
     registerRegion(shape, data) {
@@ -30,14 +31,15 @@ export class LayoutManager {
     /**
      * Updates existing region
      * @param regionId {number} Region id
-     * @param shape {ISHape} new shape, if shape is null, current shape preserved
+     * @param shape {IShape} new shape, if shape is null, current shape preserved
+     * @param data {*}
      */
     updateRegion(regionId, shape, data) {
         assert.hasValue(regionId, 'regionId');
-        if (!shape && !callback)
+        if (!shape)
             return;
 
-        region = this._regions.find(x => x.id === regionId);
+        var region = this._regions.find(x => x.id === regionId);
         if (!region)
             throw new Error('Region with id=' + regionId + ' weren\'t found');
 

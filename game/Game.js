@@ -3,7 +3,7 @@ import MainMenuScreen from './screens/MainMenuScreen.js';
 import BattleScreen from './screens/BattleScreen.js';
 import * as html from './utils/html.js';
 
-'use strict'
+'use strict';
 
 export default class Game {
     constructor(domRoot, serviceLocator, logger, stateManager, assetManager, localizationManager) {
@@ -39,7 +39,6 @@ export default class Game {
 
         Promise.all([loadLocalePromise, loadAssetManifestPromise, this.screens.logo.ready]).then(() => {
             this.screens.logo.show();
-            //this.screens.options.show();
         });
     }
 

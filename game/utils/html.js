@@ -43,6 +43,7 @@ export function toggleClass(element, className) {
 function getPixelRatio() {
     const ctx = document.createElement('canvas').getContext('2d');
     const dpr = window.devicePixelRatio || 1;
+    // noinspection SpellCheckingInspection
     const bspr = ctx.webkitBackingStorePixelRatio ||
                  ctx.mozBackingStorePixelRatio ||
                  ctx.msBackingStorePixelRatio ||
@@ -84,7 +85,7 @@ export function createHighDpiCanvas(width, height, ratio) {
  * @param canvasElement {HTMLCanvasElement}
  * @param [ratio] {number}
  */
-export function makeCanvasHightDpi(canvasElement, ratio) {
+export function makeCanvasHighDpi(canvasElement, ratio) {
     assert.hasValue(canvasElement, 'canvasElement argument should have value');
     ratio = ratio || pixelRatio;
     const width = canvasElement.clientWidth;

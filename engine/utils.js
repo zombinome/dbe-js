@@ -18,7 +18,7 @@ export const assert = {
     },
 
     isNumber: function (value, message) {
-        if (typeof value != 'number')
+        if (typeof value !== 'number')
             throw new Error(message);
     },
 
@@ -34,7 +34,7 @@ export function clone(source) {
 
     const sourceType = typeof source;
 
-    var copy ;
+    //var copy ;
     if (Array.isArray(source) || source.hasOwnProperty('length')) {
         return cloneArray(source);
     }

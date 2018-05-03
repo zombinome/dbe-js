@@ -8,16 +8,20 @@ import * as html from './../utils/html.js';
  */
 export default class MainMenuScreen extends EventSource {
     /**
-     * @param screenNode {HTMLElement}
+     * @param canvas {HTMLCanvasElement}
      * @param serviceLocator {IServiceLocator}
      */
     constructor(canvas, serviceLocator) {
         super();
 
+        const screenNode = canvas.parentElement;
+
         /** @type {HTMLCanvasElement} */ this._canvas = canvas;
 
         /** @type {IAssetManager} */ this.assetManager = null;
-        /** @type {ILayoutManager */ this.layoutManager = null;
+        /** @type {ILayoutManager} */ this.layoutManager = null;
+
+        this.domNode = screenNode.querySelector('div.main-menu-view');
 
         /** @type {{ newGame: HTMLElement, options: HTMLElement }} */
         this.buttons = {

@@ -12,7 +12,7 @@ export default class LocalizationManager extends EventSource {
         this._baseUri = localizationsUri;
         this._currentLocale = null;
         if (!!locale) {
-            asert.isString(locale);
+            assert.isString(locale);
             this._currentLocale = locale;
         }
     }

@@ -15,7 +15,7 @@ export default class EventSource {
     }
 
     /**
-     * Subsribes event source to event handler
+     * Subscribes event source to event handler
      * @param event {string} Event name
      * @param handler {Function}
      * @param [context] {*}

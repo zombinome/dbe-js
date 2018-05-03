@@ -1,5 +1,9 @@
 {
     "audio": {
-        "m-main-menu": "music/20 - menutrck.mp3"
+        "m-main-menu": "music/20 - main menu.mp3",
+        "m-battle-01": "music/01 - battle 01.mp3",
+        "m-battle-02": "music/02 - battle 02.mp3",
+        "m-battle-03": "music/03 - battle 03.mp3",
+        "m-battle-04": "music/04 - battle 04.mp3"
     }
 }

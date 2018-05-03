@@ -71,6 +71,6 @@
  * @property {UnitActionResult[]} actionResults
  */
 
-/** @typedef {UnitActionResult}
+/** @typedef {object} UnitActionResult
  *
  */

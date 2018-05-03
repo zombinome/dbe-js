@@ -43,7 +43,7 @@ export default class AssetManager {
         this._assetManifest = null;
         this._assetManifestPromise = null;
 
-        /** @type object.<string,object.<string,IAssetInfo>> */
+        /** @type {object.<string,object.<string,IAssetInfo>>} */
         this._assets = {};
         Object.getOwnPropertyNames(assetTypes).forEach(at => { this._assets[at] = {}; })
     }
@@ -199,10 +199,7 @@ class AssetBatchInfo extends EventSource {
         this.failedAssetsCount = 0;
 
         this.requireAllAssets = requireAll;
-
         this.assets = assets;
-
-        const batch = this;
         this.promise = null;
     }
 
@@ -211,6 +208,7 @@ class AssetBatchInfo extends EventSource {
     }
 
     load() {
+        const batch = this;
         this.promise = new Promise(function (resolve, reject) {
             var completedPromises = 0;
             for (var i = 0; i < assets.lenth; i++) {

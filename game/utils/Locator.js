@@ -86,7 +86,7 @@ export default class Locator {
         const initializerType = dependency.rule[0],
             initializer = dependency.rule[1];
 
-        if (initializerType === initializerTypes.instance || initializerType == initializerTypes.i) {
+        if (initializerType === initializerTypes.instance || initializerType === initializerTypes.i) {
             dependency.value = initializer;
             return Promise.resolve(dependency.value);
         }
@@ -94,10 +94,10 @@ export default class Locator {
         const lifetimePolicy = dependency.rule[2];
         const argsPromise = getArgs(this, dependency.rule[3], dependency.rule[4], serviceName);
         let resolvePromise;
-        if (initializerType === initializerTypes.factory || initializerType == initializerTypes.f) {
+        if (initializerType === initializerTypes.factory || initializerType === initializerTypes.f) {
             resolvePromise = argsPromise.then(args => initializer.apply(null, args));
         }
-        else if (initializerType === initializerTypes.constructor || initializerType == initializerTypes.c) {
+        else if (initializerType === initializerTypes.constructor || initializerType === initializerTypes.c) {
             resolvePromise = argsPromise.then(args => {
                 args.unshift(null);
                 let constructor = Function.prototype.bind.apply(initializer, args);

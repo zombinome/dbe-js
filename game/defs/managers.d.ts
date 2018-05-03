@@ -64,7 +64,7 @@ interface IAssetBatchInfo extends IEventSource {
     /**
      * Load batch load promise.
      * If requireAllAssets is true, promise resolves if all assets from batch were loaded successfully, fails otherwise
-     * If requireAllAssets is false, promise resolves if at least on asset from bath were loaded succesfully,
+     * If requireAllAssets is false, promise resolves if at least on asset from bath were loaded successfully,
      * fails otherwise
      */
     promise: Promise;
@@ -75,7 +75,7 @@ interface IAssetBatchInfo extends IEventSource {
     loadAssetsCount: number;
 
     /**
-     * Number of assets failed to laod
+     * Number of assets failed to load
      */
     failedAssetsCount: number;
 }
@@ -95,7 +95,7 @@ interface IShape {
      * Checks if point with specified coordinates is located inside given shape
      * @param {number} x - the X coordinate
      * @param {number} y - the Y coordinate
-     * @returns {boolean} - true if poins is located inside the shape, false otherwise
+     * @returns {boolean} - true if points is located inside the shape, false otherwise
      */
     contains(x: number, y: number): boolean;
 }
@@ -121,6 +121,7 @@ interface ILayoutManager {
     /**
      * Register new region
      * @param shape {IShape} Region shape, should implement IShape interface
+     * @param data {*}
      * @returns {number} Region id
      */
     registerRegion(shape: IShape, data?: any);
@@ -128,7 +129,8 @@ interface ILayoutManager {
     /**
      * Updates existing region
      * @param regionId {number} Region id
-     * @param shape {ISHape} new shape, if shape is null, current shape preserved
+     * @param data {*}
+     * @param shape {IShape} new shape, if shape is null, current shape preserved
      */
     updateRegion(regionId: number, shape?: IShape, data?: any);
 
@@ -167,7 +169,7 @@ interface ILayoutManager {
     /**
      * Enumerates existing regions
      * returned collection SHOULD NOT be modified as it returns internal object
-     * isntead of copy by performance considerations
+     * instead of copy by performance considerations
      * @returns {IRegion[]}
      */
     enumRegions(callback);
@@ -178,3 +180,5 @@ interface IDatabaseManager
 
     loadDatabase()
 }
+
+interface IRegion {}

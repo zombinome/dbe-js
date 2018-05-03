@@ -1,6 +1,8 @@
 import EventSource from './../utils/EventSource.js';
 import * as html from './../utils/html.js';
 
+import GameLoop from '../GameLoop.js';
+
 'use strict';
 
 const textLines = [
@@ -8,34 +10,43 @@ const textLines = [
     'Disciples battle engine demo'
 ];
 
+const textPhases = {
+    beforeFadeIn: 0,
+    fadingIn: 1,
+    fullDisplay: 2,
+    fadeOut: 3,
+    afterFadeOut: 4
+};
+
 const
     blankTime = 300,
     fadeInTime = 300,
     fadeOutTime = 300,
-    textReadTime = 2400;
+    textReadTime = 1000;
 
 export default class LogoScreen extends EventSource {
     constructor(canvas) {
         super();
 
+        this._loop = new GameLoop(this.update.bind(this), this.render.bind(this), this._hideInternal.bind(this));
+
         /** @type {HTMLCanvasElement} */
         this._canvas = canvas;
+        this._canvas.style.backgroundColor = '#000';
         this._drawContext = null;
+
         this._clickHandler = this.handleClick.bind(this);
-
-        this.bgColor = '#000';
-        this.textColor = '#fff';
-
         this._canvas.addEventListener('click', this._clickHandler);
 
         /** @public */
         this.ready = Promise.resolve();
 
-        this._currentSlideIndex = -1;
-        this._phase = -1;
-        this._phaseStart = null;
-        this._animationCallback = this.animate.bind(this);
-        this._animationRequestId = null;
+        this._state = {
+            currentSlideIndex: -1,
+            phase: -1,
+            transparency: 0,
+            diff: 0
+        };
     }
 
     /**
@@ -60,20 +71,20 @@ export default class LogoScreen extends EventSource {
 
     show() {
         this._drawContext = this._canvas.getContext('2d');
+        this._drawContext.textAlign = 'center';
+        this._drawContext.font = '24px Courier New';
 
-        this._currentSlideIndex = 0;
-        this._phase = 0;
+        this._state.currentSlideIndex = 0;
+        this._state.phase = textPhases.beforeFadeIn;
 
-        this._animationRequestId = window.requestAnimationFrame(this._animationCallback);
+        this._loop.start();
     }
 
     hide() {
-        if (this._animationRequestId) {
-            window.cancelAnimationFrame(this._animationRequestId);
-        }
-
-        this._drawContext = null;
-        this._canvas.removeEventListener('click', this._clickHandler);
+        if (this._loop.isRunning)
+            this._loop.stop();
+        else
+            this._hideInternal();
     }
 
     handleClick(e) {
@@ -82,88 +93,85 @@ export default class LogoScreen extends EventSource {
             e.stopPropagation();
         }
 
-        this.dispatchEvent(LogoScreen.evnClose);
         this.hide();
     }
 
-    animate(timeStamp) {
-        if (!this._phaseStart) {
-            this._phaseStart = timeStamp;
-        }
+    update(delta) {
+        const state = this._state;
 
-        var diff = timeStamp - this._phaseStart;
-        var value = 0;
-        switch (this._phase) {
-            case 0:
-                if (diff <= blankTime) {
-                    value = 0;
+        state.diff += delta;
+        switch (state.phase) {
+            case textPhases.beforeFadeIn: // 0
+                if (state.diff <= blankTime) {
+                    state.transparency = 0;
                     break;
                 }
                 else {
-                    diff -= blankTime;
-                    this._phaseStart += blankTime;
-                    this._phase++;
+                    state.diff -= blankTime;
+                    state.phase++;
                 }
-            case 1:
-                if (diff <= fadeInTime) {
-                    value = diff / fadeInTime;
+            case textPhases.fadingIn: // 1
+                if (state.diff <= fadeInTime) {
+                    state.transparency = state.diff / fadeInTime;
                     break;
                 }
                 else {
-                    diff -= fadeInTime;
-                    this._phaseStart += fadeInTime;
-                    this._phase++;
+                    state.diff -= fadeInTime;
+                    state.phase++;
                 }
-            case 2:
-                if (diff <= textReadTime) {
-                    value = 1;
+            case textPhases.fullDisplay: // 2
+                if (state.diff <= textReadTime) {
+                    state.transparency = 1;
                     break;
                 }
                 else {
-                    diff -= textReadTime;
-                    this._phaseStart += textReadTime;
-                    this._phase++;
+                    state.diff -= textReadTime;
+                    state.phase++;
                 }
-            case 3:
-                if (diff <= fadeOutTime) {
-                    value = 1 - diff / fadeOutTime;
+            case textPhases.fadeOut: // 3
+                if (state.diff <= fadeOutTime) {
+                    state.transparency = 1 - state.diff / fadeOutTime;
                     break;
                 }
                 else {
-                    diff -= fadeOutTime;
-                    this._phaseStart += fadeOutTime;
-                    this._phase++;
+                    state.diff -= fadeOutTime;
+                    state.phase++;
                 }
                 break;
-            case 4:
-                if (diff <= blankTime) {
-                    value = 0;
+            case textPhases.afterFadeOut: // 4
+                if (state.diff <= blankTime) {
+                    state.transparency = 0;
                     break;
                 }
                 else {
-                    this._phase = 0;
-                    this._timeStamp = null;
-                    this._currentSlideIndex++;
+                    state.phase = 0;
+                    state.diff = 0;
+                    state.currentSlideIndex++;
                 }
         }
 
-        if (this._currentSlideIndex >= textLines.length) {
-            this.handleClick();
-            return;
-        }
+        // return true if we have slides to show
+        return state.currentSlideIndex < textLines.length;
+    }
 
-        this._drawContext.globalAlpha = 1;
-        this._drawContext.fillStyle = this.bgColor;
-        this._drawContext.fillRect(0, 0, this._canvas.clientWidth, this._canvas.clientHeight);
+    render() {
+        const ctx = this._drawContext;
+        ctx.clearRect(0, 0, this._canvas.clientWidth, this._canvas.clientHeight);
 
-        const text = textLines[this._currentSlideIndex];
-        this._drawContext.globalAlpha = value;
-        this._drawContext.fillStyle = this.textColor;
-        this._drawContext.textAlign = 'center';
-        this._drawContext.font = '24px Courier New';
-        this._drawContext.fillText(text, this._canvas.clientWidth / 2, this._canvas.clientHeight / 2);
+        const text = textLines[this._state.currentSlideIndex];
+        const t = Math.round(this._state.transparency * 255);
+        ctx.fillStyle = 'rgb(' + t + ',' + t + ',' + t + ')';
 
-        this._animationRequestId = window.requestAnimationFrame(this._animationCallback);
+        ctx.fillText(text, this._canvas.clientWidth / 2, this._canvas.clientHeight / 2);
+
+        return true;
+    }
+
+    _hideInternal() {
+        this._drawContext = null;
+        this._canvas.removeEventListener('click', this._clickHandler);
+
+        this.dispatchEvent(LogoScreen.evnClose);
     }
 }
 
